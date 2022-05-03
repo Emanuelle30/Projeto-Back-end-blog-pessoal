@@ -29,6 +29,7 @@ import com.blogpessoal.blogpessoal.repository.TemaRespository;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TemaController {
 
+	
 	@Autowired
 	private TemaRespository temaRepository;
 
