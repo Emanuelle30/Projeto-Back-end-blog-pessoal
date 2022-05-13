@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,12 +24,12 @@ public class Postagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank
-	@Size(min = 3, max = 255)
-	private String titulo;
+	@NotBlank(message = "O atributo título é obrigatório e não pode utilizar espaços em branco!") 
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 5 e no máximo 100 caracteres!")
+	private String titulo; 
 	
-	@NotBlank
-	@Size(max = 1000)
+	@NotNull(message = "O atributo texto é obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 500 caracteres!")
 	private String texto;
 	
 	@UpdateTimestamp
@@ -36,18 +37,15 @@ public class Postagem {
 	
 	private String foto;
 	
+	private String tipo;
+	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 	
-	
-	public Tema getTema() {
-		return tema;
-	}
-
-	public void setTema(Tema tema) {
-		this.tema = tema;
-	}
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
 	public long getId() {
 		return id;
@@ -88,9 +86,28 @@ public class Postagem {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
-	
-	
-	
-	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }

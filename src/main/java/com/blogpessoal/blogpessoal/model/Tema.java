@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,21 +21,12 @@ public class Tema {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull
+	@NotBlank(message = "O atributo descrição é obrigatório e não pode conter espaços em branco!")
 	private String descricao;
 	
-	@OneToMany(mappedBy="tema" , cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "tema" , cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagem;
-	
-
-	public List<Postagem> getPostagem() {
-		return postagem;
-	}
-
-	public void setPostagem(List<Postagem> postagem) {
-		this.postagem = postagem;
-	}
 
 	public long getId() {
 		return id;
@@ -52,6 +43,14 @@ public class Tema {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
+
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
+}	
+
 	
-	
-}
